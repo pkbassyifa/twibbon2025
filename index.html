@@ -11,20 +11,24 @@
       text-align: center;
       padding: 20px;
     }
+
     input[type="file"] {
       margin: 15px auto;
     }
+
     .canvas-container {
       width: 100%;
       max-width: 500px;
       margin: auto;
     }
+
     canvas {
       width: 100%;
       height: auto;
       border: 2px dashed #ccc;
       background: #fff;
     }
+
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -60,18 +64,17 @@
   <script>
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
-
     const twibbon = new Image();
-    twibbon.src = "twibbon-frame.png";
+    twibbon.src = "twibbon-frame.png"; // Pastikan file ini ada di GitHub
 
     document.getElementById("upload").addEventListener("change", function(e) {
       const reader = new FileReader();
       reader.onload = function(event) {
         const img = new Image();
         img.onload = function () {
-          // Atur gambar agar pas proporsional
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+          // Rasio dan crop tengah agar tidak gepeng
           const imgRatio = img.width / img.height;
           const canvasRatio = canvas.width / canvas.height;
 
@@ -91,7 +94,7 @@
 
           ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
           ctx.drawImage(twibbon, 0, 0, canvas.width, canvas.height);
-        }
+        };
         img.src = event.target.result;
       };
       reader.readAsDataURL(e.target.files[0]);
