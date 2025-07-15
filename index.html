@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Twibbon Aku Anak Hebat - KB ASSYIFA BRUMBUNG</title>
+
+  <!-- ✅ Tag verifikasi Popcash / Popads -->
+  <meta name="ppck-ver" content="a35973a51f53f9eae15ee92e7154f197" />
+
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -11,24 +15,20 @@
       text-align: center;
       padding: 20px;
     }
-
     input[type="file"] {
       margin: 15px auto;
     }
-
     .canvas-container {
       width: 100%;
       max-width: 500px;
       margin: auto;
     }
-
     canvas {
       width: 100%;
       height: auto;
       border: 2px dashed #ccc;
       background: #fff;
     }
-
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -57,15 +57,13 @@
     Browser tidak mendukung audio.
   </audio>
 
-  <!-- Kode Iklan -->
-  <script type='text/javascript' src='//pl27069849.profitableratecpm.com/8c/f0/8cf062057f2f45cfa1519b2c82f040b8.js'></script>
-
   <!-- Script Twibbon -->
   <script>
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
+
     const twibbon = new Image();
-    twibbon.src = "twibbon-frame.png"; // Pastikan file ini ada di GitHub
+    twibbon.src = "twibbon-frame.png";
 
     document.getElementById("upload").addEventListener("change", function(e) {
       const reader = new FileReader();
@@ -74,7 +72,6 @@
         img.onload = function () {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-          // Rasio dan crop tengah agar tidak gepeng
           const imgRatio = img.width / img.height;
           const canvasRatio = canvas.width / canvas.height;
 
@@ -94,7 +91,7 @@
 
           ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
           ctx.drawImage(twibbon, 0, 0, canvas.width, canvas.height);
-        };
+        }
         img.src = event.target.result;
       };
       reader.readAsDataURL(e.target.files[0]);
@@ -107,5 +104,10 @@
       link.click();
     }
   </script>
+
+  <!-- ✅ Tambahkan Script Pop Ads (setelah kamu dikonfirmasi oleh pihak popads/popcash) -->
+  <!-- Contoh ini hanya jika kamu sudah diberi kode JS, misalnya: -->
+  <!-- <script type="text/javascript" src="https://example.com/popads.js"></script> -->
+
 </body>
 </html>
