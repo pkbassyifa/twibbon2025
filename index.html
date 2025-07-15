@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -14,9 +14,16 @@
     input[type="file"] {
       margin: 15px auto;
     }
+    .canvas-container {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+    }
     canvas {
-      margin-top: 15px;
+      width: 100%;
+      height: auto;
       border: 2px dashed #ccc;
+      background: #fff;
     }
     button {
       margin-top: 20px;
@@ -35,9 +42,9 @@
   <p>Unggah foto anak Anda dan dapatkan Twibbon otomatis siap unduh!</p>
 
   <input type="file" id="upload" accept="image/*">
-  <br/>
-  <canvas id="canvas" width="1080" height="1080"></canvas>
-  <br/>
+  <div class="canvas-container">
+    <canvas id="canvas" width="1080" height="1080"></canvas>
+  </div>
   <button onclick="downloadImage()">⬇️ Unduh Hasil</button>
 
   <!-- Musik Latar -->
@@ -55,21 +62,35 @@
     const ctx = canvas.getContext("2d");
 
     const twibbon = new Image();
-    twibbon.src = "twibbon-frame.png"; // File PNG kamu
+    twibbon.src = "twibbon-frame.png";
 
     document.getElementById("upload").addEventListener("change", function(e) {
       const reader = new FileReader();
       reader.onload = function(event) {
         const img = new Image();
         img.onload = function () {
-          // Gambar latar user
+          // Atur gambar agar pas proporsional
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, 1080, 1080);
-          // Gambar twibbon overlay
-          twibbon.onload = function() {
-            ctx.drawImage(twibbon, 0, 0, 1080, 1080);
+
+          const imgRatio = img.width / img.height;
+          const canvasRatio = canvas.width / canvas.height;
+
+          let drawWidth, drawHeight, offsetX, offsetY;
+
+          if (imgRatio > canvasRatio) {
+            drawHeight = canvas.height;
+            drawWidth = img.width * (canvas.height / img.height);
+            offsetX = -(drawWidth - canvas.width) / 2;
+            offsetY = 0;
+          } else {
+            drawWidth = canvas.width;
+            drawHeight = img.height * (canvas.width / img.width);
+            offsetX = 0;
+            offsetY = -(drawHeight - canvas.height) / 2;
           }
-          ctx.drawImage(twibbon, 0, 0, 1080, 1080);
+
+          ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+          ctx.drawImage(twibbon, 0, 0, canvas.width, canvas.height);
         }
         img.src = event.target.result;
       };
