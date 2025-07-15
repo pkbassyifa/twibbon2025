@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Twibbon PAUD KB ASSYIFA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- KODE IKLAN ADSENSE -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6805648908862765"
+     crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      text-align: center;
+      background: #f7fff2;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    canvas {
+      border: 2px dashed #ccc;
+      margin-top: 20px;
+      max-width: 100%;
+    }
+    input, button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- SLOT IKLAN DI ATAS -->
+  <ins class="adsbygoogle"
+       style="display:block; text-align:center;"
+       data-ad-client="ca-pub-6805648908862765"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <h2>📸 Aku Anak Hebat - KB ASSYIFA BRUMBUNG</h2>
+  <p>Unggah foto anak Anda dan dapatkan Twibbon otomatis siap unduh!</p>
+
+  <input type="file" id="upload" accept="image/*"><br>
+  <canvas id="canvas" width="1080" height="1080"></canvas><br>
+  <button onclick="download()">📥 Unduh Hasil</button>
+
+  <script>
+    const upload = document.getElementById('upload');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const twibbon = new Image();
+    twibbon.src = "twibbon-frame.svg";
+
+    upload.addEventListener("change", function(e) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, 1080, 1080);
+          twibbon.onload = function() {
+            ctx.drawImage(twibbon, 0, 0, 1080, 1080);
+          };
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    function download() {
+      const link = document.createElement('a');
+      link.download = 'Twibbon-Anak-Hebat.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+</body>
+</html>
